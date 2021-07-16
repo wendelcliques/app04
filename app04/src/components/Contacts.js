@@ -17,7 +17,7 @@ let ref = fireDb.firestore().collection('contacts').onSnapshot(querySnapshot => 
     querySnapshot.forEach(doc => {
         data.push({
             ...doc.data(),
-            key: doc.id
+            id: doc.id
         })
     })
     setContactObjects(data)
@@ -26,22 +26,17 @@ return () => ref()
     }, [])
 
     const addOrEdit = obj => {
-        console.log("currentId valor", JSON.stringify(currentId));
+        console.log("currentId valor", currentId);
 if(currentId === '')
-fireDb
-.firestore()
-.doc(currentId)
 
-
-.set(obj);
-    //fireDb.firestore().collection('contacts').add(obj);
+    fireDb.firestore().collection('contacts').add(obj);
   else 
   fireDb
   .firestore()
   .collection('contacts')
-  .where('id', '==', 'eE2EjmF5id239C4OWllp')
+  .doc(obj.id)
   
-  .set(obj);
+  .update(obj);
     }
     return (
 <>
@@ -68,7 +63,7 @@ fireDb
                         {
                             Object.keys(contactObjects).map(id => {
                                 return <tr 
-                               // key={id}
+                                key={id}
                                 >
                                     <td>{contactObjects[id].fullName} </td>
                                     <td>{contactObjects[id].mobile} </td>
@@ -78,7 +73,9 @@ fireDb
 <input type="submit" 
 value="Editar" 
 className="btn btn-primary btn-block"
-onClick={() => {setCurrentId(id)}} />
+onClick={() => {setCurrentId(id)}} 
+onKeyPress={() => {setCurrentId(id)}} 
+/>
 
 
 <input type="submit" value="Apagar" className="btn btn-primary btn-block" />
