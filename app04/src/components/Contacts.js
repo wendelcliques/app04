@@ -11,8 +11,10 @@ const Contacts = () => {
 
     console.log("currentId v", currentId);
 
-    useEffect(() => {
-let ref = fireDb.firestore().collection('contacts').onSnapshot(querySnapshot => {
+  /*  useEffect(() => {
+
+
+/*let ref = fireDb.firestore().collection('contacts').onSnapshot(querySnapshot => {
     const data = []
     querySnapshot.forEach(doc => {
         data.push({
@@ -21,9 +23,22 @@ let ref = fireDb.firestore().collection('contacts').onSnapshot(querySnapshot => 
         })
     })
     setContactObjects(data)
+
+
 })
 return () => ref()
+    }, [])*/
+
+    useEffect(() => {
+const fetchData = async () => {
+const db = fireDb.firestore();
+const data = await db.collection('contacts').get();
+setContactObjects(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+};
+fetchData();
     }, [])
+
+    //console.log("objeto", obj);
 
     const addOrEdit = obj => {
         console.log("currentId valor", currentId);
@@ -38,6 +53,8 @@ if(currentId === '')
   
   .update(obj);
     }
+
+
     return (
 <>
 <div class="jumbotron jumbotron-fluid">
@@ -61,20 +78,24 @@ if(currentId === '')
                     </thead>
                     <tbody>
                         {
-                            Object.keys(contactObjects).map(id => {
+                            Object.keys(contactObjects).map(obj => {
                                 return <tr 
-                                key={id}
+                                key={obj.id}
                                 >
-                                    <td>{contactObjects[id].fullName} </td>
-                                    <td>{contactObjects[id].mobile} </td>
-                                    <td>{contactObjects[id].email} </td>
+                                    <td>{obj.fullName} </td>
+                                    <td>{obj.mobile} </td>
+                                    <td>{obj.email} </td>
                                     <td>
                                         <div>
 <input type="submit" 
 value="Editar" 
 className="btn btn-primary btn-block"
-onClick={() => {setCurrentId(id)}} 
-onKeyPress={() => {setCurrentId(id)}} 
+onClick={() => {
+    //setCurrentId(id)
+}} 
+onKeyPress={() => {
+   // setCurrentId(id)
+    }} 
 />
 
 
