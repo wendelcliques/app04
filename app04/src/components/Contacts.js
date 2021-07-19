@@ -42,7 +42,7 @@ fetchData();
 
     const addOrEdit = obj => {
         console.log("currentId valor", currentId);
-if(currentId === '')
+if(currentId == '')
 
     fireDb.firestore().collection('contacts').add(obj);
   else 
@@ -64,7 +64,7 @@ if(currentId === '')
 </div>
         <div className="row">
             <div className="col-md-5">
-                <ContactForm { ... ({addOrEdit, currentId, contactObjects })} />
+                <ContactForm  { ...({addOrEdit, currentId, contactObjects })} />
             </div>
             <div className="col-md-7">
                 <table>
@@ -78,37 +78,44 @@ if(currentId === '')
                     </thead>
                     <tbody>
                         {
-                            Object.keys(contactObjects).map(obj => {
+                            Object.keys(contactObjects).map(id => {
                                 return <tr 
-                                key={obj.id}
+                                key={id}
                                 >
-                                    <td>{obj.fullName} </td>
-                                    <td>{obj.mobile} </td>
-                                    <td>{obj.email} </td>
+                                    <td>{contactObjects[id].fullName} </td>
+                                    <td>{contactObjects[id].mobile} </td>
+                                    <td>{contactObjects[id].email} </td>
                                     <td>
                                         <div>
-<input type="submit" 
-value="Editar" 
-className="btn btn-primary btn-block"
-onClick={() => {
-    //setCurrentId(id)
-}} 
-onKeyPress={() => {
-   // setCurrentId(id)
-    }} 
-/>
+                                            <input type="submit" 
+                                                value="Editar" 
+                                                className="btn btn-primary btn-block"
+                                                onClick={() => {
+                                                setCurrentId("1AS0mn0Aq98nnNvIBwHu")
+                                                    }} 
+                                                    onKeyPress={() => {
+                                                    // setCurrentId(id)
+                                                    }} 
+                                                />
 
 
-<input type="submit" value="Apagar" className="btn btn-primary btn-block" />
+                                                <input 
+                                                type="submit" 
+                                                value="Apagar" 
+                                                className="btn btn-primary btn-block" />
                                         </div>
                                     </td>
                                 </tr>
                             })
                         }
+
+
                     </tbody>
                 </table>
             </div>
         </div>
+
+
         </>
     );
 }
