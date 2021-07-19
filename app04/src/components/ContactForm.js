@@ -16,7 +16,7 @@ const ContactForm = ({addOrEdit, currentId, contactsObjects}) => {
 
 useEffect(() => {
 
-if(currentId == '')
+if(currentId === '')
 setValues({
     ...initialFieldsValues
 })
@@ -24,7 +24,7 @@ else
 setValues({
     ...contactsObjects[currentId]
 })
-}, [currentId, contactsObjects])
+}, [ currentId, contactsObjects])
 
     const handleInputChange = e => {
        var {name, value} = e.target
@@ -40,14 +40,14 @@ const handleFormSubmit = e => {
 }
 
     return (
-       <form autoComplete="off" onSubmit={handleFormSubmit()}>
+       <form autoComplete="off" onSubmit={handleFormSubmit}>
            <div className="form-group input-group">
                         <input 
                         className="form-control" 
                         placeholder="Full Name"
                         name="fullName"
                         value={values.fullName} 
-                        onChange={handleInputChange()}
+                        onChange={handleInputChange}
                     />
            </div>
            <div className="form-row">
@@ -59,7 +59,7 @@ const handleFormSubmit = e => {
                         placeholder="Mobile"
                         name="mobile"
                         value={values.mobile}
-                        onChange={handleInputChange()}
+                        onChange={handleInputChange}
                     />
            </div>
 
@@ -70,7 +70,7 @@ const handleFormSubmit = e => {
                         placeholder="Email"
                         name="email"
                         value={values.email} 
-                        onChange={handleInputChange()}
+                        onChange={handleInputChange}
                     />
            </div>
 
@@ -80,12 +80,12 @@ const handleFormSubmit = e => {
                     placeholder="Address"
                     name="address"
                     value={values.address} 
-                    onChange={handleInputChange()}
+                    onChange={handleInputChange}
                 />
             </div>
 
             <div>
-                <input type="submit" value={currentId == '' ? "Save" : "Update" } className="btn btn-primary btn-block" />
+                <input type="submit" value={currentId === '' ? "Save" : "Update" } className="btn btn-primary btn-block" />
             </div>
 
            </div>

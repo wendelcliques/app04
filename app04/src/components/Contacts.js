@@ -36,13 +36,13 @@ const data = await db.collection('contacts').get();
 setContactObjects(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 };
 fetchData();
-    }, [])
+    }, [currentId])
 
     //console.log("objeto", obj);
 
     const addOrEdit = obj => {
         console.log("currentId valor", currentId);
-if(currentId == '')
+if(currentId === '')
 
     fireDb.firestore().collection('contacts').add(obj);
   else 
@@ -51,9 +51,26 @@ if(currentId == '')
   .collection('contacts')
   .doc(obj.id)
   
-  .update(obj);
+  .set(obj);
+
+  setCurrentId('');
+    }
+const onDelete = (obj) => {
+    if((window.confirm("apagar?"))) {
+        console.log("apagou", obj.id)
+    fireDb
+    .firestore()
+    .collection('contacts')
+    .doc(obj.id)                                                    
+    .delete();
+
+   
     }
 
+}
+    
+   
+    console.log("prevent", addOrEdit, currentId, contactObjects)
 
     return (
 <>
@@ -64,7 +81,13 @@ if(currentId == '')
 </div>
         <div className="row">
             <div className="col-md-5">
-                <ContactForm  { ...({addOrEdit, currentId, contactObjects })} />
+                <ContactForm  
+                //{  ...( {  } )} 
+                    addOrEdit={addOrEdit}
+                    currentId={currentId}
+                    contactsObjects={contactObjects}
+                    />
+                
             </div>
             <div className="col-md-7">
                 <table>
@@ -79,9 +102,7 @@ if(currentId == '')
                     <tbody>
                         {
                             Object.keys(contactObjects).map(id => {
-                                return <tr 
-                                key={id}
-                                >
+                                return <tr key={contactObjects.id} >
                                     <td>{contactObjects[id].fullName} </td>
                                     <td>{contactObjects[id].mobile} </td>
                                     <td>{contactObjects[id].email} </td>
@@ -91,10 +112,10 @@ if(currentId == '')
                                                 value="Editar" 
                                                 className="btn btn-primary btn-block"
                                                 onClick={() => {
-                                                setCurrentId("1AS0mn0Aq98nnNvIBwHu")
+                                                setCurrentId(id)
                                                     }} 
                                                     onKeyPress={() => {
-                                                    // setCurrentId(id)
+                                                     setCurrentId(id)
                                                     }} 
                                                 />
 
@@ -102,7 +123,16 @@ if(currentId == '')
                                                 <input 
                                                 type="submit" 
                                                 value="Apagar" 
-                                                className="btn btn-primary btn-block" />
+                                                className="btn btn-primary btn-block" 
+                                                onClick={() => {
+                                                    onDelete(id)}
+
+
+                                                     }
+                                                        onKeyPress={() => {
+                                                            onDelete(id)}
+                                                        } 
+                                                />
                                         </div>
                                     </td>
                                 </tr>
