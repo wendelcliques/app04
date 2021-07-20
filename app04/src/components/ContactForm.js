@@ -4,10 +4,10 @@ import React, {useState, useEffect} from "react"
 
 const ContactForm = ({apagar, onDelete, addOrEdit, currentId, contactsObjects}) => {
     const initialFieldsValues = {
-        fullName: '',
-        mobile: '',
-        email: '',
-        address: '',
+        apresentador: '',
+        professor: '',
+        visibility: 'public',
+        descricao: '',
     }
 
     var [values, setValues] = useState(initialFieldsValues);
@@ -68,9 +68,9 @@ const handleFormSubmit = e => {
            <div className="form-group input-group">
                         <input 
                         className="form-control" 
-                        placeholder="Full Name"
-                        name="fullName"
-                        value={values.fullName} 
+                        placeholder="Apresentador"
+                        name="apresentador"
+                        value={values.apresentador} 
                         onChange={handleInputChange}
                     />
            </div>
@@ -80,9 +80,9 @@ const handleFormSubmit = e => {
            <div className="form-group input-group">
                         <input 
                         className="form-control" 
-                        placeholder="Mobile"
-                        name="mobile"
-                        value={values.mobile}
+                        placeholder="Professor"
+                        name="professor"
+                        value={values.professor}
                         onChange={handleInputChange}
                     />
            </div>
@@ -91,9 +91,9 @@ const handleFormSubmit = e => {
            <div className="form-group input-group">
                     <input 
                         className="form-control" 
-                        placeholder="Email"
-                        name="email"
-                        value={values.email} 
+                        placeholder="Descrição"
+                        name="descricao"
+                        value={values.descricao} 
                         onChange={handleInputChange}
                     />
            </div>
@@ -103,7 +103,7 @@ const handleFormSubmit = e => {
                 <textarea className="form-control" 
                     placeholder="Address"
                     name="address"
-                    value={values.address} 
+                    value={values.visibility} 
                     onChange={handleInputChange}
                 />
             </div>

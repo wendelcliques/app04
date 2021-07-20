@@ -33,7 +33,7 @@ return () => ref()
     useEffect(() => {
 const fetchData = async () => {
 const db = fireDb.firestore();
-const data = await db.collection('contacts').get();
+const data = await db.collection('atividades').get();
 setContactObjects(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 };
 fetchData();
@@ -45,11 +45,11 @@ fetchData();
         console.log("currentId valor", currentId);
 if(currentId === '')
 
-    fireDb.firestore().collection('contacts').add(obj);
+    fireDb.firestore().collection('atividades').add(obj);
   else 
   fireDb
   .firestore()
-  .collection('contacts')
+  .collection('atividades')
   .doc(obj.id)
   
   .set(obj);
@@ -61,7 +61,7 @@ const onDelete = obj => {
         console.log("apagou", obj.id)
     fireDb
     .firestore()
-    .collection('contacts')
+    .collection('atividades')
     .doc(obj.id)                                                    
     .delete();
 
@@ -106,9 +106,9 @@ const onDelete = obj => {
                         {
                             Object.keys(contactObjects).map(id => {
                                 return <tr key={contactObjects.id} >
-                                    <td>{contactObjects[id].fullName} </td>
-                                    <td>{contactObjects[id].mobile} </td>
-                                    <td>{contactObjects[id].email} </td>
+                                    <td>{contactObjects[id].apresentador} </td>
+                                    <td>{contactObjects[id].professor} </td>
+                                    <td>{contactObjects[id].descricao} </td>
                                     <td>
                                         <div>
                                             <input type="submit" 
