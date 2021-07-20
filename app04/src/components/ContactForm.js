@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react"
 
 
 
-const ContactForm = ({addOrEdit, currentId, contactsObjects}) => {
+const ContactForm = ({apagar, onDelete, addOrEdit, currentId, contactsObjects}) => {
     const initialFieldsValues = {
         fullName: '',
         mobile: '',
@@ -12,7 +12,14 @@ const ContactForm = ({addOrEdit, currentId, contactsObjects}) => {
 
     var [values, setValues] = useState(initialFieldsValues);
 
+  
+
     console.log("values", currentId)
+    console.log("apagar", apagar)
+
+    if (apagar) {
+        
+    }
 
 useEffect(() => {
 
@@ -20,11 +27,16 @@ if(currentId === '')
 setValues({
     ...initialFieldsValues
 })
+//else if(apagar === '')
+//setValues({
+ //   ...contactsObjects[currentId]
+//})
 else
 setValues({
     ...contactsObjects[currentId]
 })
-}, [ currentId, contactsObjects])
+
+}, [ apagar, currentId, contactsObjects])
 
     const handleInputChange = e => {
        var {name, value} = e.target
@@ -35,12 +47,24 @@ setValues({
     }
 
 const handleFormSubmit = e => {
+    if (apagar) {
+        e.preventDefault();
+        onDelete(values)
+    }
+    else 
+    {
     e.preventDefault();
     addOrEdit(values)
+    }
 }
 
+
     return (
-       <form autoComplete="off" onSubmit={handleFormSubmit}>
+       <form 
+       autoComplete="off" 
+       onSubmit={handleFormSubmit}
+       
+       >
            <div className="form-group input-group">
                         <input 
                         className="form-control" 
@@ -85,8 +109,16 @@ const handleFormSubmit = e => {
             </div>
 
             <div>
-                <input type="submit" value={currentId === '' ? "Save" : "Update" } className="btn btn-primary btn-block" />
-            </div>
+                <input 
+                type="submit" 
+                value={
+                    
+                    
+                    currentId === '' ? "Save" : "Update" } 
+                className="btn btn-primary btn-block" 
+                />
+
+</div>
 
            </div>
        </form>

@@ -8,6 +8,7 @@ const Contacts = () => {
 
     var [contactObjects, setContactObjects] = useState({})
     var [currentId, setCurrentId] = useState('')
+    var [apagar, setApagar] = useState(false);
 
     console.log("currentId v", currentId);
 
@@ -55,7 +56,7 @@ if(currentId === '')
 
   setCurrentId('');
     }
-const onDelete = (obj) => {
+const onDelete = obj => {
     if((window.confirm("apagar?"))) {
         console.log("apagou", obj.id)
     fireDb
@@ -83,9 +84,11 @@ const onDelete = (obj) => {
             <div className="col-md-5">
                 <ContactForm  
                 //{  ...( {  } )} 
+                    onDelete={onDelete}
                     addOrEdit={addOrEdit}
                     currentId={currentId}
                     contactsObjects={contactObjects}
+                    apagar={apagar}
                     />
                 
             </div>
@@ -125,12 +128,14 @@ const onDelete = (obj) => {
                                                 value="Apagar" 
                                                 className="btn btn-primary btn-block" 
                                                 onClick={() => {
-                                                    onDelete(id)}
+                                                    setCurrentId(id)
+                                                    setApagar(true)}
 
 
                                                      }
                                                         onKeyPress={() => {
-                                                            onDelete(id)}
+                                                            setCurrentId(id)
+                                                            setApagar(true)}
                                                         } 
                                                 />
                                         </div>
