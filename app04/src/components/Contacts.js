@@ -7,6 +7,7 @@ import fireDb from "../firebase";
 const Contacts = () => {
 
     var [contactObjects, setContactObjects] = useState({})
+    const [resultado, setResultado] = useState([]);
     var [currentId, setCurrentId] = useState('')
     var [apagar, setApagar] = useState(false);
 
@@ -40,6 +41,7 @@ fetchData();
     }, [currentId])
 
     //console.log("objeto", obj);
+    //setResultado(contactObjects)
 
     const addOrEdit = obj => {
         console.log("currentId valor", currentId);
@@ -72,7 +74,7 @@ const onDelete = obj => {
     
    
     console.log("prevent", addOrEdit, currentId, contactObjects)
-
+    console.log("resultado", resultado)
     return (
 <>
 <div class="jumbotron jumbotron-fluid">
@@ -92,16 +94,17 @@ const onDelete = obj => {
                     />
                 
             </div>
+
+
+            <div>
+               oi 
+              
+
+               
+            </div>
             <div className="col-md-7">
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Full Name</th>
-                            <th>Mobile</th>
-                            <th>Email</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+                
                     <tbody>
                         {
                             Object.keys(contactObjects).map(id => {
@@ -109,6 +112,9 @@ const onDelete = obj => {
                                     <td>{contactObjects[id].apresentador} </td>
                                     <td>{contactObjects[id].professor} </td>
                                     <td>{contactObjects[id].descricao} </td>
+                                    <td>{contactObjects[id].description} </td>
+                                    <td>{contactObjects[id].titulo} </td>
+                                    <td>{contactObjects[id].vagas} </td>
                                     <td>
                                         <div>
                                             <input type="submit" 
@@ -162,3 +168,13 @@ export default Contacts;
    // if (err)
    // console.log(err)
 //}
+
+
+/*<thead>
+<tr>
+    <th>Full Name</th>
+    <th>Mobile</th>
+    <th>Email</th>
+    <th>Actions</th>
+</tr>
+</thead>*/
